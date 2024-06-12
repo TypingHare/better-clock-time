@@ -1,4 +1,4 @@
-# (Hour Minute Second)[https://github.com/typinghare/hour-minute-second]
+# [Hour Minute Second](https://github.com/typinghare/hour-minute-second)
 
 This library provides a flexible and efficient solution for handling time durations based on
 hours, minutes, and seconds. It offers two implementations, `SlowHourMinuteSecond` and `QuickHourMinuteSecond`,

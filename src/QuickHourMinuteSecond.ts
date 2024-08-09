@@ -1,4 +1,4 @@
-import {HourMinuteSecond} from './HourMinuteSecond'
+import { HourMinuteSecond } from './HourMinuteSecond.js'
 
 /**
  * @author James Chan
@@ -12,15 +12,15 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      * Creates a quick hour minute second.
      * @param ms time in milliseconds.
      */
-    public constructor(ms: number);
+    public constructor(ms: number)
     /**
      * Creates a quick hour minute second.
      * @param hour hours.
      * @param minute minutes.
      * @param second seconds.
      */
-    public constructor(hour: number, minute: number, second: number);
-    public constructor(hour: number, minute ?: number, seconds?: number) {
+    public constructor(hour: number, minute: number, second: number)
+    public constructor(hour: number, minute?: number, seconds?: number) {
         super()
 
         if (minute === undefined || seconds === undefined) {
@@ -32,7 +32,8 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
             this._minute = minute
             this._second = seconds
 
-            this._ms = this._hour * HourMinuteSecond.MILLISECONDS_IN_HOUR +
+            this._ms =
+                this._hour * HourMinuteSecond.MILLISECONDS_IN_HOUR +
                 this._minute * HourMinuteSecond.MILLISECONDS_IN_MINUTE +
                 this.second * HourMinuteSecond.MILLISECONDS_IN_SECOND
         }
@@ -65,7 +66,9 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      * @param seconds
      */
     public static ofSeconds(seconds: number): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+        return new QuickHourMinuteSecond(
+            seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND
+        )
     }
 
     /**
@@ -73,7 +76,9 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      * @param minutes
      */
     public static ofMinutes(minutes: number): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+        return new QuickHourMinuteSecond(
+            minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE
+        )
     }
 
     /**
@@ -81,23 +86,27 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      * @param hours
      */
     public static ofHours(hours: number): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+        return new QuickHourMinuteSecond(
+            hours * HourMinuteSecond.MILLISECONDS_IN_HOUR
+        )
     }
 
-    public override consume(hourMinuteSecond: HourMinuteSecond): this;
-    public override consume(ms: number): this;
+    public override consume(hourMinuteSecond: HourMinuteSecond): this
+    public override consume(ms: number): this
     public override consume(time: number | HourMinuteSecond): this {
-        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
+        const ms =
+            typeof time == 'number' ? time : (time as HourMinuteSecond).ms
         this._ms = Math.max(this._ms - ms, 0)
         this.compute()
 
         return this
     }
 
-    public override extend(hourMinuteSecond: HourMinuteSecond): this;
-    public override extend(ms: number): this;
+    public override extend(hourMinuteSecond: HourMinuteSecond): this
+    public override extend(ms: number): this
     public override extend(time: number | HourMinuteSecond): this {
-        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
+        const ms =
+            typeof time == 'number' ? time : (time as HourMinuteSecond).ms
         this._ms += ms
         this.compute()
 
@@ -113,8 +122,14 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      * @private
      */
     private compute(): void {
-        this._hour = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR)
-        this._minute = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) % HourMinuteSecond.MINUTE_IN_HOUR
-        this._second = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) % HourMinuteSecond.SECOND_IN_MINUTE
+        this._hour = Math.floor(
+            this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR
+        )
+        this._minute =
+            Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) %
+            HourMinuteSecond.MINUTE_IN_HOUR
+        this._second =
+            Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) %
+            HourMinuteSecond.SECOND_IN_MINUTE
     }
 }

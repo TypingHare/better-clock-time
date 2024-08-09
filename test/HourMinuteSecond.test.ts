@@ -1,4 +1,8 @@
-import {HourMinuteSecond, QuickHourMinuteSecond, SlowHourMinuteSecond} from '../src/main'
+import {
+    HourMinuteSecond,
+    QuickHourMinuteSecond,
+    SlowHourMinuteSecond,
+} from '../src'
 
 describe('Test HourMinuteSecond', () => {
     it('Test the create method.', () => {
@@ -25,14 +29,14 @@ describe('Test HourMinuteSecond', () => {
     })
 
     it('Test toSecondsInt, toMinutesInt, and toHoursInt', () => {
-        const time1 = HourMinuteSecond.of(1342942);
+        const time1 = HourMinuteSecond.of(1342942)
         expect(time1.toSecondsInt()).toBe(1342)
         expect(time1.toMinutesInt()).toBe(22)
         expect(time1.toHoursInt()).toBe(0)
 
-        const time2 = HourMinuteSecond.of(75048245);
+        const time2 = HourMinuteSecond.of(75048245)
         expect(time2.toSecondsInt()).toBe(75048)
         expect(time2.toMinutesInt()).toBe(1250)
         expect(time2.toHoursInt()).toBe(20)
-    });
+    })
 })

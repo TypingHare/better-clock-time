@@ -1,4 +1,4 @@
-import {HourMinuteSecond} from './HourMinuteSecond'
+import { HourMinuteSecond } from './HourMinuteSecond.js'
 
 /**
  * @author James Chan
@@ -28,11 +28,17 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
     }
 
     public override get minute(): number {
-        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) % HourMinuteSecond.MINUTE_IN_HOUR
+        return (
+            Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) %
+            HourMinuteSecond.MINUTE_IN_HOUR
+        )
     }
 
     public override get second(): number {
-        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) % HourMinuteSecond.SECOND_IN_MINUTE
+        return (
+            Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) %
+            HourMinuteSecond.SECOND_IN_MINUTE
+        )
     }
 
     /**
@@ -40,7 +46,9 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
      * @param seconds
      */
     public static ofSeconds(seconds: number): SlowHourMinuteSecond {
-        return new SlowHourMinuteSecond(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+        return new SlowHourMinuteSecond(
+            seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND
+        )
     }
 
     /**
@@ -48,7 +56,9 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
      * @param minutes
      */
     public static ofMinutes(minutes: number): SlowHourMinuteSecond {
-        return new SlowHourMinuteSecond(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+        return new SlowHourMinuteSecond(
+            minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE
+        )
     }
 
     /**
@@ -56,13 +66,16 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
      * @param hours
      */
     public static ofHours(hours: number): SlowHourMinuteSecond {
-        return new SlowHourMinuteSecond(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+        return new SlowHourMinuteSecond(
+            hours * HourMinuteSecond.MILLISECONDS_IN_HOUR
+        )
     }
 
     public override consume(hourMinuteSecond: HourMinuteSecond): this
     public override consume(ms: number): this
     public override consume(time: number | HourMinuteSecond): this {
-        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
+        const ms =
+            typeof time == 'number' ? time : (time as HourMinuteSecond).ms
         this._ms -= ms
 
         return this
@@ -71,7 +84,8 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
     public override extend(hourMinuteSecond: HourMinuteSecond): this
     public override extend(ms: number): this
     public override extend(time: number | HourMinuteSecond): this {
-        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
+        const ms =
+            typeof time == 'number' ? time : (time as HourMinuteSecond).ms
         this._ms += ms
 
         return this

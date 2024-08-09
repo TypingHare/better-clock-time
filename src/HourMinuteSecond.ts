@@ -1,4 +1,4 @@
-export type HourMinuteSecondClass = new(...args: any[]) => HourMinuteSecond;
+export type HourMinuteSecondClass = new (...args: any[]) => HourMinuteSecond
 
 /**
  * @author James Chan
@@ -11,7 +11,7 @@ export abstract class HourMinuteSecond {
      */
     private static staticInstantiateClass?: HourMinuteSecondClass = undefined
 
-    // Commonly used constants.
+    // Commonly used constants
     public static SECOND_IN_MINUTE = 60
     public static MINUTE_IN_HOUR = 60
     public static MILLISECONDS_IN_SECOND = 1000
@@ -20,7 +20,7 @@ export abstract class HourMinuteSecond {
 
     /**
      * Creates an instance of HourMinuteSecond.
-     * @param ms
+     * @param ms Milliseconds.
      */
     public static create(ms: number = 0): HourMinuteSecond {
         return new HourMinuteSecond.staticInstantiateClass!(ms)
@@ -40,7 +40,9 @@ export abstract class HourMinuteSecond {
      * @param seconds
      */
     public static ofSeconds(seconds: number): HourMinuteSecond {
-        return new HourMinuteSecond.staticInstantiateClass!(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+        return new HourMinuteSecond.staticInstantiateClass!(
+            seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND
+        )
     }
 
     /**
@@ -48,7 +50,9 @@ export abstract class HourMinuteSecond {
      * @param minutes
      */
     public static ofMinutes(minutes: number): HourMinuteSecond {
-        return new HourMinuteSecond.staticInstantiateClass!(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+        return new HourMinuteSecond.staticInstantiateClass!(
+            minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE
+        )
     }
 
     /**
@@ -56,14 +60,18 @@ export abstract class HourMinuteSecond {
      * @param hours
      */
     public static ofHours(hours: number): HourMinuteSecond {
-        return new HourMinuteSecond.staticInstantiateClass!(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+        return new HourMinuteSecond.staticInstantiateClass!(
+            hours * HourMinuteSecond.MILLISECONDS_IN_HOUR
+        )
     }
 
     /**
      * Sets the static instantiate class.
      * @param staticInstantiateClass
      */
-    public static setStaticInitiateClass(staticInstantiateClass: HourMinuteSecondClass): void {
+    public static setStaticInitiateClass(
+        staticInstantiateClass: HourMinuteSecondClass
+    ): void {
         HourMinuteSecond.staticInstantiateClass = staticInstantiateClass
     }
 
@@ -122,7 +130,7 @@ export abstract class HourMinuteSecond {
     /**
      * Returns a clone object.
      */
-    public abstract clone(): HourMinuteSecond;
+    public abstract clone(): HourMinuteSecond
 
     /**
      * Consumes time in seconds.
@@ -184,7 +192,8 @@ export abstract class HourMinuteSecond {
         const mm = m.padStart(2, '0')
         const ss = s.padStart(2, '0')
 
-        return format.toLowerCase()
+        return format
+            .toLowerCase()
             .replace('hh', hh)
             .replace('mm', mm)
             .replace('ss', ss)

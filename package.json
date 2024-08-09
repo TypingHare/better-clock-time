@@ -1,9 +1,9 @@
 {
   "name": "@typinghare/hour-minute-second",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple hour-minute-second library.",
-  "main": "dist/main.js",
-  "types": "types/main.d.ts",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "type": "module",
   "author": {
     "name": "James Chen",

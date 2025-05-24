@@ -37,15 +37,12 @@ export class DefaultClockTime extends ClockTime {
     public override get minute(): number {
         return (
             Math.floor(this.internalMs / ClockTime.MILLISECONDS_IN_MINUTE) %
-            ClockTime.MILLISECONDS_IN_MINUTE
+            ClockTime.MINUTE_IN_HOUR
         )
     }
 
     public override get hour(): number {
-        return (
-            Math.floor(this.internalMs / ClockTime.MILLISECONDS_IN_HOUR) %
-            ClockTime.MILLISECONDS_IN_HOUR
-        )
+        return Math.floor(this.internalMs / ClockTime.MILLISECONDS_IN_HOUR)
     }
 
     public override consume(ms: number): this
@@ -53,6 +50,10 @@ export class DefaultClockTime extends ClockTime {
     public override consume(time: number | ClockTime): this {
         const ms = typeof time == 'number' ? time : (time as ClockTime).ms
         this.internalMs -= ms
+
+        if (this.internalMs <= 0) {
+            this.internalMs = 0
+        }
 
         return this
     }

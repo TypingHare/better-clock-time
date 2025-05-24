@@ -1,6 +1,6 @@
 # [Better Clock Time](https://github.com/TypingHare/better-clock-time/)
 
-Better Clock Time is a lightweight, intuitive TypeScript library designed to simplify working with clock-style durations. It offers a clean and expressive API for creating, manipulating, and formatting time represented in milliseconds. Whether you're dealing with milliseconds, seconds, minutes, or hours, Better Clock Time makes it easy to construct and adjust time values with chainable methods like .extend() and .consume().
+Better Clock Time is a lightweight, intuitive TypeScript library designed to simplify working with clock-style durations. It offers a clean and expressive API for creating, manipulating, and formatting time represented in milliseconds. Whether you're dealing with milliseconds, seconds, minutes, or hours, Better Clock Time makes it easy to construct and adjust time values with chainable methods like `.extend()` and `.consume()`.
 
 With convenient accessors for hours, minutes, and seconds, as well as custom string formatting and conversion utilities, this library is ideal for applications involving timers, countdowns, scheduling, and more—without the overhead of a full date-time solution.
 

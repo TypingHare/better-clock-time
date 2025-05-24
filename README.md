@@ -1,181 +1,164 @@
-# [Hour Minute Second](https://github.com/typinghare/hour-minute-second)
+# [Better Clock Time](https://github.com/TypingHare/better-clock-time/)
 
-This library provides a flexible and efficient solution for handling time durations based on
-hours, minutes, and seconds. It offers two implementations, `SlowHourMinuteSecond` and `QuickHourMinuteSecond`,
-catering to different use cases. Whether you need real-time updates or fast calculations, this library empowers
-you with essential features and a clean API.
+Better Clock Time is a lightweight, intuitive TypeScript library designed to simplify working with clock-style durations. It offers a clean and expressive API for creating, manipulating, and formatting time represented in milliseconds. Whether you're dealing with milliseconds, seconds, minutes, or hours, Better Clock Time makes it easy to construct and adjust time values with chainable methods like .extend() and .consume().
 
-There are two implementations of the HourMinuteSecond abstract class:
-`SlowHourMinuteSecond` and `QuickHourMinuteSecond`. These implementations represent
-time in hours, minutes, and seconds. The main difference between them lies in
-how they handle time calculations and updates.
+With convenient accessors for hours, minutes, and seconds, as well as custom string formatting and conversion utilities, this library is ideal for applications involving timers, countdowns, scheduling, and more—without the overhead of a full date-time solution.
 
-The `SlowHourMinuteSecond` class computes the hours, minutes, and seconds dynamically when they are accessed.
-This means that whenever you retrieve the hour, minute, or second value, it performs the calculation based on
-the total time stored in milliseconds. This approach is suitable when you have a fixed time value and need to access
-the components multiple times without frequent updates.
-
-The `QuickHourMinuteSecond` class takes a different approach by computing the hour, minute, and second values only
-when the time is updated. It stores the time in milliseconds and updates the components accordingly. This
-implementation is suitable when you frequently update the time value and need fast access to the individual
-components.
-
-**Despite their different implementations, both the SlowHourMinuteSecond and QuickHourMinuteSecond classes are created,
-updated, and accessed using the same approach.** Therefore, this documentation only takes`SlowHourMinuteSecond` as
-an example.
-
-## Create Time
+## Create Clock Time
 
 ```typescript
-import {SlowHourMinuteSecond} from '@typinghare/hour-minute-second'
+import { ClockTime } from 'better-clock-time'
 
-// Create a SlowHourMinuteSecond instance with 4532500 milliseconds
-new SlowHourMinuteSecond(4532500)
+// Create a ClockTime instance with 12345 milliseconds
+ClockTime.of(12345)
 
 // By default, the time is set to 0 milliseconds
-new SlowHourMinuteSecond()
+ClockTime.of()
 
-// Create a SlowHourMinuteSecond instance with 100 seconds
-SlowHourMinuteSecond.ofSeconds(100)
+// Create a ClockTime instance with 100 seconds
+ClockTime.ofSeconds(100)
 
-// Create a SlowHourMinuteSecond instance with 50 minutes
-SlowHourMinuteSecond.ofMinutes(50)
+// Create a ClockTime instance with 80 minutes
+ClockTime.ofMinutes(80)
 
-// Create a SlowHourMinuteSecond instance with 10 hours
-SlowHourMinuteSecond.ofHours(10)
-```
-
-### Since v1.1.0
-
-```typescript
-import {HourMinuteSecond, QuickHourMinuteSecond} from '@typinghare/hour-minute-second'
-
-// Create a SlowHourMinuteSecond (default) by using `HourMinuteSecond.create` method
-const slowTime = HourMinuteSecond.create(1000)
-
-// Custom the static initiatiate class
-HourMinuteSecond.setStaticInitiateClass(QuickHourMinuteSecond)
-
-// Then the instance created is an instance of QuickHourMinuteSecond
-const quickTime = HourMinuteSecond.create(1000)
-
-// ofSeconds, ofMinutes, and ofHours
-HourMinuteSecond.ofSeconds(32)
-HourMinuteSecond.ofMinutes(15)
-HourMinuteSecond.ofHours(1)
-```
-
-### Since v1.2.0
-
-```typescript
-import {HourMinuteSecond} from "@typinghare/hour-minute-second";
-
-// Create an hour-minute-second instance by a specified milliseconds
-HourMinuteSecond.of(114514)
+// Create a ClockTime instance with 5 hours
+ClockTime.ofHours(5)
 ```
 
 ## Access Time
 
 ```typescript
-import {SlowHourMinuteSecond} from '@typinghare/hour-minute-second'
+import { ClockTime } from 'better-clock-time'
 
-// This time represents 1:15:32
-const time = new SlowHourMinuteSecond(4532500)
+// It represents 01:15:32
+const clockTime = ClockTime.of(4532500)
 
-console.log(time.ms)        // >> 4532500
-console.log(time.hour)      // >> 1
-console.log(time.minute)    // >> 15
-console.log(time.second)    // >> 32
-```
+// Print the milliseconds, which should be 4532500
+console.log(clockTime.ms)
 
-## Extend Time
+// Print the second, which should be 32
+console.log(clockTime.second)
 
-```typescript
-import {SlowHourMinuteSecond} from '@typinghare/hour-minute-second'
+// Print the minute, which should be 15
+console.log(clockTime.minute) // 15
 
-const time = new SlowHourMinuteSecond()
-
-// Extend 500 milliseconds
-time.extend(500)
-
-// Extend 1 hour
-time.extendHour(1)
-
-// Extend 5 minutes
-time.extendMinute(5)
-
-// Extend 20 seconds
-time.extendSecond(20)
-
-// Chain programming is supported
-time.extendHour(1)
-    .extendMinute(5)
-    .extendSecond(20)
+// Print the hour, which should be 1
+console.log(clockTime.hour) // 1
 ```
 
 ## Consume Time
 
-```typescript
-import {SlowHourMinuteSecond} from '@typinghare/hour-minute-second'
+Consuming time reduces a ClockTime instance's internal time by the given time.
 
-const time = new SlowHourMinuteSecond(10000000)
+```typescript
+import { ClockTime } from 'better-clock-time'
+
+const clockTime = ClockTime.of()
+
+// Extend 500 milliseconds
+clockTime.extend(500)
+
+// Extend 20 seconds
+clockTime.extendSecond(20)
+
+// Extend 5 minutes
+clockTime.extendMinute(5)
+
+// Extend 1 hour
+clockTime.extendHour(1)
+
+// You can pass another ClockTimeInstance
+clockTime.extend(ClockTime.of(35000))
+
+// Supports chaining programming
+clockTime.extendHour(1).extendMinute(5).extendSecond(20)
+```
+
+## Extend Time
+
+Extending time increases a ClockTime instance's internal time by the given time.
+
+```typescript
+import { ClockTime } from 'better-clock-time'
+
+const clockTime = ClockTime.of(10000000)
 
 // Consume 500 milliseconds
-time.consume(500)
-
-// Consume 1 hour
-time.consumeHour(1)
-
-// Consume 5 minutes
-time.consumeMinute(5)
+clockTime.consume(500)
 
 // Consume 20 seconds
-time.consumeSecond(20)
+clockTime.consumeSecond(20)
 
-// Chain programming is supported
-time.consumeHour(1)
-    .consumeMinute(5)
-    .consumeSecond(20)
+// Consume 5 minutes
+clockTime.consumeMinute(5)
+
+// Consume 1 hour
+clockTime.consumeHour(1)
+
+// You can pass another ClockTimeInstance
+clockTime.consume(ClockTime.of(35000))
+
+// Supports chaining programming
+clockTime.consumeHour(1).consumeMinute(5).consumeSecond(20)
 ```
 
 ## Clone Time
 
 ```typescript
-const time = new SlowHourMinuteSecond(500)
-const cloneTime = time.clone(500)
+import { ClockTime } from 'better-clock-time'
 
-time.extend(500)
+const clockTime = ClockTime.of(500)
+const clonedClockTime = time.clone()
 
-console.log(cloneTime.ms === 500)  // >> true
+clockTime.extend(500)
+
+// The `clonedClockTime` is not affected and thus the ms is still 500
+console.log(clonedClockTime.ms)
 ```
 
 ## toString
 
 ```typescript
-import {SlowHourMinuteSecond} from '@typinghare/hour-minute-second'
+import { ClockTime } from 'better-clock-time'
 
-// This time represents 1:15:32
-const time = new SlowHourMinuteSecond(4532500)
+// This ClockTime instance represents 1:15:32
+const clockTime = new SlowHourMinuteSecond(4532500)
 
-// The toString() method is overried
-console.log(time)    // >> 1:15:32
+// The toString() method is overried; this will output `01:15:32`
+console.log(clockTime)
 
 // You can specify the format of the string
-console.log(time.toString('hh-mm-ss'))  // >> 1-15-32
+// The following will output `01-15-32`
+console.log(clockTime.toString('hh-mm-ss'))
 ```
 
 ## To Seconds, Minutes, and Hours
 
 ```typescript
-const time = HourMinuteSecond.of(75048245);
-console.log(time.toSeconds())   // >> 75048.245
-console.log(time.toMinutes())   // >> 1250.8040833333334
-console.log(time.toHours())     // >> 20.846734722222223
+import { ClockTime } from 'better-clock-time'
+const clockTIme = ClockTIme.of(75048245)
+
+// 75048.245
+console.log(time.toSeconds())
+
+// 1250.8040833333334
+console.log(time.toMinutes())
+
+// 20.846734722222223
+console.log(time.toHours())
 ```
 
 ```typescript
-const time = HourMinuteSecond.of(75048245);
-console.log(time.toSecondsInt())    // >> 75048
-console.log(time.toMinutesInt())    // >> 1250
-console.log(time.toHoursInt())      // >> 20
+import { ClockTime } from 'better-clock-time'
+
+const clockTIme = ClockTIme.of(75048245)
+
+// 75048
+console.log(time.toSecondsInt()) // >> 75048
+
+// 1250
+console.log(time.toMinutesInt())
+
+// 20
+console.log(time.toHoursInt())
 ```

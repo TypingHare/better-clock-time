@@ -46,7 +46,7 @@ export class DefaultClockTime extends ClockTime {
     }
 
     public override consume(ms: number): this
-    public override consume(clockTime: this): this
+    public override consume(clockTime: ClockTime): this
     public override consume(time: number | ClockTime): this {
         const ms = typeof time == 'number' ? time : (time as ClockTime).ms
         this.internalMs -= ms
@@ -59,7 +59,7 @@ export class DefaultClockTime extends ClockTime {
     }
 
     public override extend(ms: number): this
-    public override extend(clockTime: this): this
+    public override extend(clockTime: ClockTime): this
     public override extend(time: number | ClockTime): this {
         const ms = typeof time == 'number' ? time : (time as ClockTime).ms
         this.internalMs += ms

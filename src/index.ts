@@ -1,8 +1,7 @@
-import { HourMinuteSecond } from './HourMinuteSecond.js'
-import { SlowHourMinuteSecond } from './SlowHourMinuteSecond.js'
+import { ClockTime } from './clock-time.js'
+import { DefaultClockTime } from './default-clock-time.js'
 
-export * from './HourMinuteSecond.js'
-export * from './QuickHourMinuteSecond.js'
-export * from './SlowHourMinuteSecond.js'
+export * from './clock-time.js'
+export * from './default-clock-time.js'
 
-HourMinuteSecond.setStaticInitiateClass(SlowHourMinuteSecond)
+ClockTime.instantiateClass = DefaultClockTime

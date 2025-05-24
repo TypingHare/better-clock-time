@@ -1,7 +1,7 @@
 {
-    "name": "@typinghare/hour-minute-second",
-    "version": "2.0.2",
-    "description": "A simple hour-minute-second library.",
+    "name": "better-clock-time",
+    "version": "1.0.0",
+    "description": "A simple clock time library.",
     "main": "dist/index.js",
     "types": "types/index.d.ts",
     "type": "module",
@@ -9,7 +9,7 @@
         "name": "James Chen",
         "email": "jameschan312.cn@gmail.com"
     },
-    "homepage": "https://github.com/typinghare/hour-minute-second",
+    "homepage": "https://github.com/typinghare/better-clock-time",
     "scripts": {
         "test": "jest --verbose --coverage",
         "compile": "node_modules/typescript/bin/tsc",
@@ -18,9 +18,8 @@
     },
     "keywords": [
         "time",
-        "hour",
-        "minute",
-        "second"
+        "clock",
+        "lightweight"
     ],
     "license": "MIT",
     "files": [

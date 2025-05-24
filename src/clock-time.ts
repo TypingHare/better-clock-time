@@ -147,7 +147,7 @@ export abstract class ClockTime {
      * @returns The current instance after consuming the specified time.
      * @since v1.0.0
      */
-    public abstract consume(clockTime: this): this
+    public abstract consume(clockTime: ClockTime): this
     /**
      * Consumes time by reducing the internal value by the given amount.
      *
@@ -175,7 +175,7 @@ export abstract class ClockTime {
      * @returns The current instance after extending the specified time.
      * @since v1.0.0
      */
-    public abstract extend(clockTime: this): this
+    public abstract extend(clockTime: ClockTime): this
     /**
      * Extends time by increasing the internal value by the given amount.
      *
